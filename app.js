@@ -10,8 +10,6 @@
         this.fact = dinoObject.fact;
     }
 
-    // Create Dino Objects
-    let dinos;
     async function getDinoArray() {
         let allDinos = [];
         allDinos = await fetch('dino.json')
@@ -23,9 +21,9 @@
         .catch(error => console.log("Error in fetching json file: ", error));
     }
 
-    dinos = getDinoArray();
+    // Create Dino Objects
+    let dinos = getDinoArray();
     
-    // Create Human Object
     const getHumanData = (e) => {
             e.preventDefault();
             const name = document.getElementById("name").value;
@@ -42,16 +40,6 @@
 
             return new Human(name, height, weight, diet);
     };
-
-    // Use IIFE to get human data from form
-    let human;
-    (function() {
-        const compareButton = document.getElementById("btn");
-        compareButton.addEventListener("click", (e) => {
-            human = getHumanData(e);
-            makeGrid(3,3, dinos, human);
-        }, false);
-    })();
 
     // Create Dino Compare Method 1
     // NOTE: Weight in JSON file is in lbs, height in inches. 
@@ -118,7 +106,6 @@
             for(let i=0; i<rows; i++) {
                 for(let j=0; j<cols; j++) {
                     let cell = document.createElement("div");
-                    // cell.className = "grid-item";
                     cell.id = 'row:' + i +',col:' + j;
                     let tile = '';
                     if(i == midRowIndex && j == midColIndex) {
@@ -136,9 +123,19 @@
             }
             return container;
         })
+        // Remove form from screen
         .then(()=> document.getElementById("dino-compare").style.display="none")
         .catch((error) => console.log("Error generating tiles: "+error));
     }
-    // Remove form from screen
-
-// On button click, prepare and display infographic
+    
+// Create Human Object
+let human;
+// Use IIFE to get human data from form
+(function() {
+    const compareButton = document.getElementById("btn");
+    // On button click, prepare and display infographic
+    compareButton.addEventListener("click", (e) => {
+        human = getHumanData(e);
+        makeGrid(3,3, dinos, human);
+    }, false);
+})();
