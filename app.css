@@ -101,6 +101,7 @@ p {
 .grid-item img {
     max-width: 100%;
     padding-bottom: 1em;
+    align-items: center;
 }
 
 .grid-item p {
@@ -114,6 +115,7 @@ p {
     font-size: 1.2em;
     font-weight: 600;
     color: #fff;
+    align-items: center;
 }
 
 /* Form Styles */
