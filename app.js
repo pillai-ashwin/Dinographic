@@ -1,11 +1,3 @@
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable eqeqeq */
-/* eslint-disable no-continue */
-/* eslint-disable no-shadow */
-/* eslint-disable no-console */
-/* eslint-disable no-return-assign */
-/* eslint-disable no-plusplus */
-
 const humanDataForm = document.getElementById('dino-compare');
 const grid = document.getElementById('grid');
 
@@ -118,27 +110,48 @@ Dino.prototype.whenDidILive = function () {
   return `I existed in the time period of ${this.when}.`;
 };
 
+// const generateFacts = (animals, human) => {
+//   const animalsWithFacts = animals.map(animal => {
+//     if (!(animal instanceof Human)) {
+//         if (animal.species === 'Pigeon') {
+//         animal.facts = [animal.fact];
+//         delete animal.fact;
+//         } else {
+//             const facts = [animal.fact];
+//             facts.push(animal.compareWeight(human));
+//             facts.concat(animal.compareHeight(human));
+//             facts.push(animal.compareDiet(human));
+//             facts.push(animal.whereDidILive());
+//             facts.push(animal.whenDidILive());
+//             animal.facts = facts;
+//             delete animal.fact;
+//         }
+//     }
+//   return animalsWithFacts;
+// });
+// };
+
 const generateFacts = (animals, human) => {
-  for (const animal of animals) {
-    if (animal instanceof Human) {
-      continue;
-    }
-    if (animal.species == 'Pigeon') {
-      animal.facts = [animal.fact];
+    for (const animal of animals) {
+      if (animal instanceof Human) {
+        continue;
+      }
+      if (animal.species === 'Pigeon') {
+        animal.facts = [animal.fact];
+        delete animal.fact;
+        continue;
+      }
+      const facts = [animal.fact];
+      facts.push(animal.compareWeight(human));
+      facts.concat(animal.compareHeight(human));
+      facts.push(animal.compareDiet(human));
+      facts.push(animal.whereDidILive());
+      facts.push(animal.whenDidILive());
+      animal.facts = facts;
       delete animal.fact;
-      continue;
     }
-    const facts = [animal.fact];
-    facts.push(animal.compareWeight(human));
-    facts.concat(animal.compareHeight(human));
-    facts.push(animal.compareDiet(human));
-    facts.push(animal.whereDidILive());
-    facts.push(animal.whenDidILive());
-    animal.facts = facts;
-    delete animal.fact;
-  }
-  return animals;
-};
+    return animals;
+  };
 
 // Fetch image for animal
 const getImage = (isHuman, path) => {
@@ -167,7 +180,7 @@ const generateTile = (obj) => {
 // Randomize order of dino array
 function randomizeArrayOrder(dinoArray) {
   const randomizedDinoArray = dinoArray;
-  for (let i = randomizedDinoArray.length - 1; i > 0; i--) {
+  for (let i = randomizedDinoArray.length - 1; i > 0; i-=1) {
     const j = Math.floor(Math.random() * i);
     const temp = randomizedDinoArray[i];
     randomizedDinoArray[i] = randomizedDinoArray[j];

@@ -4,11 +4,18 @@
         "es2021": true
     },
     "extends": [
-        "airbnb-base"
+        "airbnb-base",
+        "prettier"
     ],
     "parserOptions": {
         "ecmaVersion": "latest"
     },
     "rules": {
+        "no-unused-vars": "warn",
+        "no-console": "off",
+        "func-names": "off",
+        "no-param-reassign": ["error", { "props": false }],
+        "no-continue": "off",
+        "no-restricted-syntax": "off"
     }
 }
