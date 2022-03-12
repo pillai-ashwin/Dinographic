@@ -40,9 +40,6 @@ const getHumanData = () => {
 };
 
 const getBeforeVowelWord = (nextWord, firstWord) => {
-  console.log(
-    `paramters passed to getBeforeVowel: ${nextWord} ${firstWord}`,
-  );
   const vowelSet = new Set(['a', 'e', 'i', 'o', 'u']);
   let beforeVowel = 'a';
   if (vowelSet.has(nextWord[0].toLowerCase())) beforeVowel = 'an';
@@ -53,8 +50,7 @@ const getBeforeVowelWord = (nextWord, firstWord) => {
 };
 
 // Create Dino Compare Method 1
-Dino.prototype.compareWeight = (human) => {
-  console.log(`comparing weight to human with this: ${JSON.stringify(this.weight)}`);
+Dino.prototype.compareWeight = function (human) {
   const dinoWeight = this.weight;
   const humanWeight = human.weight;
   const difference = dinoWeight - humanWeight;
@@ -66,7 +62,7 @@ Dino.prototype.compareWeight = (human) => {
 
 // Create Dino Compare Method 2
 
-Dino.prototype.compareHeight = (human) => {
+Dino.prototype.compareHeight = function (human) {
   const dinoHeight = this.height;
   const humanHeight = human.height;
   let difference = dinoHeight - humanHeight;
@@ -99,7 +95,7 @@ Dino.prototype.compareHeight = (human) => {
 };
 
 // Create Dino Compare Method 3
-Dino.prototype.compareDiet = (human) => {
+Dino.prototype.compareDiet = function (human) {
   const dinoDiet = this.diet[0].toUpperCase() + this.diet.slice(1);
   const humanDiet = human.diet[0].toUpperCase() + human.diet.slice(1);
   if (humanDiet.toLowerCase() === dinoDiet.toLowerCase()) {
@@ -114,15 +110,17 @@ Dino.prototype.compareDiet = (human) => {
   )} ${humanDiet}`;
 };
 
-Dino.prototype.whereDidILive = () => `I lived in ${this.where}.`;
+Dino.prototype.whereDidILive = function () {
+  return `I lived in ${this.where}.`;
+};
 
-Dino.prototype.whenDidILive = () => `I existed in the time period of ${this.when}.`;
+Dino.prototype.whenDidILive = function () {
+  return `I existed in the time period of ${this.when}.`;
+};
 
 const generateFacts = (animals, human) => {
   for (const animal of animals) {
-    console.log(`animal: ${JSON.stringify(animal)}`);
     if (animal instanceof Human) {
-      console.log('human found and skipped');
       continue;
     }
     if (animal.species == 'Pigeon') {
@@ -164,8 +162,6 @@ const generateTile = (obj) => {
   htmlString += randomFact;
   tile.innerHTML = htmlString;
   grid.appendChild(tile);
-
-  console.log(`tile for species: ${obj.species}: ${htmlString}`);
 };
 
 // Randomize order of dino array
@@ -208,12 +204,8 @@ fetch('dino.json')
       (e) => {
         e.preventDefault();
         const human = getHumanData();
-        console.log(`human: ${JSON.stringify(human)}`);
         const combinedArray = getCombinedArray(dinos, human);
-        console.log(`combinedArray: ${JSON.stringify(combinedArray)}`);
         const combinedArrayWithFacts = generateFacts(combinedArray, human);
-        console.log(`combinedArrayWithFacts: ${JSON.stringify(combinedArrayWithFacts)}`);
-
         showGrid(combinedArrayWithFacts);
       },
       false,
